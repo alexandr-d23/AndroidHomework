@@ -2,17 +2,214 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id = "@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorGrayDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/photo"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:background="@color/colorPrimary"
+        android:padding="20dp"
+        app:strokeWidth="10dp"
+        app:strokeColor="@android:color/white"
+        app:srcCompat="@drawable/outline_rowing_24"
+        app:layout_constraintTop_toBottomOf="@id/view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/view"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50percent"
+        />
+
+    <TextView
+        android:id="@+id/article"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Алёша Дьяконов"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="28sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photo"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50percent"
+        android:id="@+id/icon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_addchart_24px"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/icon2"
+        app:layout_constraintTop_toBottomOf="@id/article" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50percent"
+        android:id="@+id/icon2"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_visibility_24px"
+        app:layout_constraintLeft_toRightOf="@id/icon1"
+        app:layout_constraintRight_toLeftOf="@id/icon3"
+        app:layout_constraintTop_toBottomOf="@id/article" />
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50percent"
+        android:id="@+id/icon3"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_person_24px"
+        app:layout_constraintLeft_toRightOf="@id/icon2"
+        app:layout_constraintRight_toLeftOf="@+id/icon4"
+        app:layout_constraintTop_toBottomOf="@id/article" />
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CornerSize50percent"
+        android:id="@+id/icon4"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_more_horiz_24px"
+        app:layout_constraintLeft_toRightOf="@id/icon3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/article" />
+
+    <ImageView
+        android:id="@+id/cityIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_home_24px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cityText"
+        app:layout_constraintTop_toTopOf="@+id/cityText" />
+
+    <TextView
+        android:id="@+id/cityText"
+        android:tag = "text"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/colorGray"
+        android:text="Current city"
+        app:layout_constraintLeft_toRightOf="@id/cityIcon"
+        app:layout_constraintTop_toBottomOf="@id/icon1"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <EditText
+        android:id="@+id/cityEdit"
+        android:tag = "edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/colorGray"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@id/cityIcon"
+        app:layout_constraintTop_toBottomOf="@id/icon1"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/workIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_work_24px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/workText"
+        app:layout_constraintTop_toTopOf="@+id/workText" />
+
+    <TextView
+        android:id="@+id/workText"
+        android:tag = "text"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Workplace"
+        android:textColor="@color/colorGray"
+        app:layout_constraintLeft_toRightOf="@id/workIcon"
+        app:layout_constraintTop_toBottomOf="@id/cityText"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/workEdit"
+        android:tag = "edit"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/colorGray"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@id/workIcon"
+        app:layout_constraintTop_toBottomOf="@id/cityText"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/hometownIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_home_work_24px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/hometownText"
+        app:layout_constraintBottom_toBottomOf="@id/hometownText"/>
+
+    <TextView
+        android:id="@+id/hometownText"
+        android:tag = "text"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="@color/colorGray"
+        android:text="Hometown"
+        app:layout_constraintLeft_toRightOf="@id/hometownIcon"
+        app:layout_constraintTop_toBottomOf="@id/workText"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <EditText
+        android:id="@+id/hometownEdit"
+        android:tag = "edit"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:visibility="invisible"
+        android:textColor="@color/colorGray"
+        app:layout_constraintLeft_toRightOf="@id/hometownIcon"
+        app:layout_constraintTop_toBottomOf="@id/workText"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="edit"
+        app:layout_constraintTop_toBottomOf="@id/hometownText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
