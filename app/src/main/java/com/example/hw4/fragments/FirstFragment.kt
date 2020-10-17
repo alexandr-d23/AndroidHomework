@@ -16,11 +16,12 @@ class FirstFragment : Fragment(){
         return inflater.inflate(R.layout.fragment_first,container,false)
     }
 
-
-    fun newInstance(): FirstFragment {
-        val args = Bundle()
-        val fragment = FirstFragment()
-        fragment.arguments = args
-        return fragment
+    companion object {
+        fun newInstance(): FirstFragment {
+            val args = Bundle()
+            val fragment = FirstFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

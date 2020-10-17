@@ -16,11 +16,12 @@ class ThirdFragment : Fragment(){
         return inflater.inflate(R.layout.fragment_third,container,false)
     }
 
-
-    fun newInstance(): ThirdFragment {
-        val args = Bundle()
-        val fragment = ThirdFragment()
-        fragment.arguments = args
-        return fragment
+    companion object {
+        fun newInstance(): ThirdFragment {
+            val args = Bundle()
+            val fragment = ThirdFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

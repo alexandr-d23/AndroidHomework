@@ -15,36 +15,34 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, FirstFragment()
-            .newInstance())
         imageButton1.setOnClickListener {
             if(selectedImage!=imageButton1){
             setSelect(imageButton1)
-            setFragment(FirstFragment().newInstance())
+            setFragment(FirstFragment.newInstance())
             }
         }
         imageButton2.setOnClickListener {
             if(selectedImage!=imageButton2) {
                 setSelect(imageButton2)
-                setFragment(SecondFragment().newInstance())
+                setFragment(SecondFragment.newInstance())
             }
         }
         imageButton3.setOnClickListener {
             if(selectedImage!=imageButton3) {
                 setSelect(imageButton3)
-                setFragment(ThirdFragment().newInstance())
+                setFragment(ThirdFragment.newInstance())
             }
         }
         imageButton4.setOnClickListener {
             if(selectedImage!=imageButton4) {
                 setSelect(imageButton4)
-                setFragment(FourthFragment().newInstance())
+                setFragment(FourthFragment.newInstance())
             }
         }
         imageButton5.setOnClickListener {
             if(selectedImage!=imageButton5) {
                 setSelect(imageButton5)
-                setFragment(FifthFragment().newInstance())
+                setFragment(FifthFragment.newInstance())
             }
         }
     }

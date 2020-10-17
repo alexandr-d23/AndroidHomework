@@ -18,11 +18,12 @@ class SecondFragment : Fragment(){
 
 
 
-
-    fun newInstance(): SecondFragment {
-        val args = Bundle()
-        val fragment = SecondFragment()
-        fragment.arguments = args
-        return fragment
+    companion object {
+        fun newInstance(): SecondFragment {
+            val args = Bundle()
+            val fragment = SecondFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
