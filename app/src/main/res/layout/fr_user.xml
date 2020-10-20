@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <ImageView
+        android:background="@color/colorBlack"
+        android:id="@+id/ft_item_iv"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ft_tv_name"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        android:layout_marginTop="60dp"
+        android:layout_height="32dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="24sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ft_item_iv"
+        tools:text="Hello"
+        />
+
+
+
+    <TextView
+        android:id="@+id/ft_tv_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ft_tv_name"
+        tools:text="Description" />
+</androidx.constraintlayout.widget.ConstraintLayout>
