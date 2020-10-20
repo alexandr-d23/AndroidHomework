@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_item"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="?attr/selectableItemBackground"
+    android:padding="8dp">
+
+    <ImageView
+        android:background="@color/colorBlack"
+        android:id="@+id/item_iv"
+        android:layout_width="100dp"
+        android:layout_height="56dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toRightOf="@id/item_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Hello"
+        />
+
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textAlignment="center"
+
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toRightOf="@id/item_iv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/item_iv"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="Description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
