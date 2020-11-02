@@ -41,7 +41,6 @@ class ClientsAdapter(
 
     override fun onItemSwiped(position: Int) {
         itemClick.invoke(position)
-        notifyItemRemoved(position)
     }
 
 }
