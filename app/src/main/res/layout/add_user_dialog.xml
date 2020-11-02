@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="24dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_marginTop="4dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:height="40dp"
+            android:id="@+id/dialog_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Имя клиента"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_description"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_marginTop="8dp"
+            android:height="40dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:id="@+id/dialog_et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Описание клиента"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialog_position"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_marginTop="8dp"
+            android:inputType="number"
+            android:height="40dp"
+            android:maxLines="1"
+            android:id="@+id/dialog_et_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Позиция"
+            android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
