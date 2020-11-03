@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item1_bnv"
+        android:icon="@drawable/ic_addchart_24px"
+        android:title="@string/f1" />
+
+    <item
+        android:id="@+id/item2_bnv"
+        android:icon="@drawable/ic_person_24px"
+        android:title="@string/f2"/>
+    <item
+        android:id="@+id/item3_bnv"
+        android:icon="@drawable/ic_visibility_40px"
+        android:title="@string/f3"/>
+</menu>
