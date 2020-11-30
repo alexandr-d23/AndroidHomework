@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@android:color/black"
+            android:layout_marginTop="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:maxLines="2"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_image"
+            tools:text="НАЗВАНИЕ ТРЕКА" />
+
+        <TextView
+            android:id="@+id/item_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_title"
+            tools:text="author" />
+
+        <TextView
+            android:id="@+id/item_current_pos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="00:00"
+            app:layout_constraintBottom_toTopOf="@id/seekBar"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/item_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:text="00:00"
+            app:layout_constraintBottom_toTopOf="@id/seekBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_author" />
+
+        <ImageView
+            android:id="@+id/item_previous"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_previous_24"
+            android:layout_marginStart="40dp"
+            app:layout_constraintTop_toBottomOf="@id/seekBar"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageView
+            android:id="@+id/item_start"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_start_24"
+            app:layout_constraintTop_toBottomOf="@id/seekBar"
+            app:layout_constraintStart_toEndOf="@id/item_previous"
+            app:layout_constraintEnd_toStartOf="@id/item_next"/>
+
+        <ImageView
+            android:id="@+id/item_stop"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            android:src="@drawable/ic_stop_24"
+            app:layout_constraintTop_toBottomOf="@id/seekBar"
+            app:layout_constraintStart_toEndOf="@id/item_previous"
+            app:layout_constraintEnd_toStartOf="@id/item_next"/>
+
+        <ImageView
+            android:id="@+id/item_next"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="40dp"
+            android:src="@drawable/ic_next_24"
+            app:layout_constraintTop_toBottomOf="@id/seekBar"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
