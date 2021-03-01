@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Task1">
-        <activity android:name="com.example.myapplication.ui.CityWeatherActivity"
+        <activity android:name="com.example.myapplication.presentation.ui.CityWeatherFragment"
             android:theme="@style/Theme.Task1NoActionBar"/>
-        <activity android:name="com.example.myapplication.ui.MainActivity">
+        <activity android:name="com.example.myapplication.presentation.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

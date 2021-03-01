@@ -1,4 +1,4 @@
-package com.example.myapplication.retrofit
+package com.example.myapplication.data.retrofit
 
 import com.example.myapplication.BuildConfig
 import okhttp3.Interceptor
@@ -55,7 +55,7 @@ object ApiFactory {
             .build()
     }
 
-    val weatherApi by lazy {
+    val weatherApi: WeatherApi by lazy {
         retrofit.create(WeatherApi::class.java)
     }
 }

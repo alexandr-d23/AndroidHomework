@@ -1,4 +1,4 @@
-package com.example.myapplication.retrofit
+package com.example.myapplication.data.retrofit
 
 import com.example.myapplication.BuildConfig
 import okhttp3.Interceptor

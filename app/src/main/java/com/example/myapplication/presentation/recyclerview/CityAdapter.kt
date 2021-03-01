@@ -1,11 +1,11 @@
-package com.example.myapplication.recyclerview
+package com.example.myapplication.presentation.recyclerview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.entities.City
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ItemCityBinding
 
