@@ -8,25 +8,25 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
-import com.example.myapplication.data.repositories.WeatherRepositoryImpl
-import com.example.myapplication.data.retrofit.ApiFactory
 import com.example.myapplication.data.entities.Weather
-import com.example.myapplication.data.room.WeatherDatabase
 import com.example.myapplication.databinding.FragmentCityWeatherBinding
 import com.example.myapplication.domain.FindCityUseCase
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class CityWeatherFragment : Fragment() {
 
     private var _binding: FragmentCityWeatherBinding? = null
     private val binding get() = _binding!!
-    private lateinit var useCase : FindCityUseCase
+
+    @Inject
+    lateinit var useCase : FindCityUseCase
 
     companion object{
         fun newInstance(cityId: Int): CityWeatherFragment{
             val args = Bundle().apply {
                 putInt(SearchFragment.CITY_ID, cityId)
-
             }
             val fragment = CityWeatherFragment()
             fragment.arguments = args
@@ -36,7 +36,6 @@ class CityWeatherFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        useCase = FindCityUseCase(WeatherRepositoryImpl(ApiFactory.weatherApi,WeatherDatabase.getInstance(requireContext()).weatherDAO),  Dispatchers.IO)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

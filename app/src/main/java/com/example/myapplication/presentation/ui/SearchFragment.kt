@@ -3,7 +3,6 @@ package com.example.myapplication.presentation.ui
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -14,31 +13,28 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.myapplication.R
-import com.example.myapplication.data.repositories.LocationRepositoryImpl
-import com.example.myapplication.data.repositories.WeatherRepositoryImpl
-import com.example.myapplication.data.retrofit.ApiFactory
-import com.example.myapplication.data.room.WeatherDatabase
 import com.example.myapplication.databinding.FragmentSearchBinding
 import com.example.myapplication.domain.FindCityUseCase
 import com.example.myapplication.domain.LocationUseCase
-import com.example.myapplication.presentation.recyclerview.City
 import com.example.myapplication.presentation.recyclerview.CityAdapter
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.lang.Exception
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchFragment : Fragment(), SearchView {
 
-//    private lateinit var searchPresenter: SearchPresenter
-    private lateinit var findCityUseCase: FindCityUseCase
+    @Inject
+    lateinit var findCityUseCase: FindCityUseCase
+
+    @Inject
+    lateinit var locationUseCase: LocationUseCase
+
     private var _binding: FragmentSearchBinding? = null
     private val binding get(): FragmentSearchBinding = _binding!!
     private lateinit var searchView: androidx.appcompat.widget.SearchView
-    private lateinit var locationUseCase: LocationUseCase
     private lateinit var adapter: CityAdapter
     private lateinit var startingCityFragment: StartingCityFragment
 
@@ -66,9 +62,6 @@ class SearchFragment : Fragment(), SearchView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        findCityUseCase = FindCityUseCase(WeatherRepositoryImpl(ApiFactory.weatherApi,
-            WeatherDatabase.getInstance(requireContext()).weatherDAO),  Dispatchers.IO)
-        locationUseCase = LocationUseCase(LocationRepositoryImpl(LocationServices.getFusedLocationProviderClient(requireContext().applicationContext)), Dispatchers.IO )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

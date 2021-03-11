@@ -5,10 +5,11 @@ import android.location.Location
 import androidx.annotation.RequiresPermission
 import com.google.android.gms.location.FusedLocationProviderClient
 import kotlinx.coroutines.suspendCancellableCoroutine
+import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class LocationRepositoryImpl(
+class LocationRepositoryImpl @Inject constructor(
     private val client: FusedLocationProviderClient
 ) : LocationRepository {
 

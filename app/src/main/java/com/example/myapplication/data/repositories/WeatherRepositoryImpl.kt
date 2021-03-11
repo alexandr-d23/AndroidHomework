@@ -8,9 +8,15 @@ import com.example.myapplication.presentation.recyclerview.City
 import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
+import javax.inject.Inject
+import javax.inject.Named
+import javax.inject.Singleton
 
-class WeatherRepositoryImpl(
+@Singleton
+class WeatherRepositoryImpl @Inject constructor(
+    @Named("weatherApi")
     private val weatherApi: WeatherApi,
+    @Named("weatherDao")//just try to remember
     private val weatherDAO: WeatherDAO
 ) : WeatherRepository {
     override suspend fun getWeatherByCityName(cityName: String): Weather? {
