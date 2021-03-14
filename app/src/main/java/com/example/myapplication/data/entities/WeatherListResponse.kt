@@ -1,6 +1,5 @@
 package com.example.myapplication.data.entities
 
-
 import com.google.gson.annotations.SerializedName
 
 data class WeatherListResponse(

@@ -15,7 +15,10 @@ class MainActivity : AppCompatActivity(), SearchFragment.StartingCityFragment {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction().replace(R.id.fl_container, SearchFragment.newInstance()).commit()
+        supportFragmentManager.beginTransaction().replace(
+            R.id.fl_container,
+            SearchFragment.newInstance()
+        ).commit()
     }
 
     override fun onBackPressed() {
@@ -23,8 +26,11 @@ class MainActivity : AppCompatActivity(), SearchFragment.StartingCityFragment {
         supportFragmentManager.popBackStack()
     }
 
-    override fun start(cityId: Int) {
-        supportFragmentManager.beginTransaction().replace(R.id.fl_container, CityWeatherFragment.newInstance(cityId)).addToBackStack(null).commit()
+    override fun startCityFragment(cityId: Int) {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.fl_container,
+            CityWeatherFragment.newInstance(cityId)
+        ).addToBackStack(null).commit()
     }
 
 }

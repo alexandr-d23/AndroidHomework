@@ -18,5 +18,8 @@ interface WeatherApi {
 
     @GET("find")
     suspend fun getWeatherByGeo(
-        @Query("lat") latitude : Double, @Query("lon") longitude: Double, @Query("cnt") count: Int): WeatherListResponse
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+        @Query("cnt") count: Int
+    ): WeatherListResponse
 }

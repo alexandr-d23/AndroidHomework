@@ -4,19 +4,18 @@ import com.example.myapplication.data.retrofit.WeatherApi
 import com.example.myapplication.data.room.WeatherDAO
 import com.example.myapplication.data.entities.Weather
 import com.example.myapplication.data.entities.WeatherNearestCity
+import com.example.myapplication.domain.WeatherRepository
 import com.example.myapplication.presentation.recyclerview.City
-import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Singleton
 class WeatherRepositoryImpl @Inject constructor(
     @Named("weatherApi")
     private val weatherApi: WeatherApi,
-    @Named("weatherDao")//just try to remember
+    @Named("weatherDao")
     private val weatherDAO: WeatherDAO
 ) : WeatherRepository {
     override suspend fun getWeatherByCityName(cityName: String): Weather? {
@@ -32,7 +31,7 @@ class WeatherRepositoryImpl @Inject constructor(
                 weatherDAO.insertWeather(it)
             }
         } catch (e: IOException) {
-            weatherDAO.getWeatherByName(cityName).getOrNull(0)
+            weatherDAO.getWeatherByName(cityName).firstOrNull()
         }
     }
 
@@ -49,7 +48,7 @@ class WeatherRepositoryImpl @Inject constructor(
                 weatherDAO.insertWeather(it)
             }
         } catch (e: IOException) {
-            weatherDAO.getWeatherById(id).getOrNull(0)
+            weatherDAO.getWeatherById(id).firstOrNull()
         }
     }
 

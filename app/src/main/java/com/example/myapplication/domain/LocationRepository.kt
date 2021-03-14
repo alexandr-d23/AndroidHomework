@@ -1,4 +1,4 @@
-package com.example.myapplication.data.repositories
+package com.example.myapplication.domain
 
 import android.location.Location
 

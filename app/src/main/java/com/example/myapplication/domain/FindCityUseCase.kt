@@ -1,17 +1,15 @@
 package com.example.myapplication.domain
 
-import com.example.myapplication.data.repositories.WeatherRepository
 import com.example.myapplication.data.entities.Weather
 import com.example.myapplication.presentation.recyclerview.City
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
+import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
-@Singleton
 class FindCityUseCase @Inject constructor(
     private val weatherRepository: WeatherRepository,
+    @Named("ioCoroutineContext")
     private val context: CoroutineContext
 ) {
     suspend fun getWeatherByCityName(cityName: String): Weather? =
@@ -24,7 +22,11 @@ class FindCityUseCase @Inject constructor(
             weatherRepository.getWeatherById(id)
         }
 
-    suspend fun getWeatherByGeo(latitude: Double, longitude: Double, count: Int): List<City> =
+    suspend fun getWeatherByGeo(
+        latitude: Double,
+        longitude: Double,
+        count: Int
+    ): List<City> =
         withContext(context) {
             weatherRepository.getWeatherByGeo(latitude, longitude, count)
         }

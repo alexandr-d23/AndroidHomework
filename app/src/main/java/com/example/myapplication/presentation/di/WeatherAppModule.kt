@@ -1,9 +1,9 @@
-package com.example.myapplication.presentation.DI
+package com.example.myapplication.presentation.di
 
 import android.content.Context
-import com.example.myapplication.data.repositories.LocationRepository
+import com.example.myapplication.domain.LocationRepository
 import com.example.myapplication.data.repositories.LocationRepositoryImpl
-import com.example.myapplication.data.repositories.WeatherRepository
+import com.example.myapplication.domain.WeatherRepository
 import com.example.myapplication.data.repositories.WeatherRepositoryImpl
 import com.example.myapplication.data.retrofit.ApiFactory
 import com.example.myapplication.data.retrofit.WeatherApi
@@ -38,8 +38,10 @@ class WeatherAppModule {
 
     @Singleton
     @Provides
+    @Named("ioCoroutineContext")
     fun provideCoroutineContext(): CoroutineContext = Dispatchers.IO
 
+    @Singleton
     @Provides
     fun provideFusedLocationProviderClient(
         @ApplicationContext context: Context,
@@ -51,9 +53,13 @@ class WeatherAppModule {
 abstract class AppModule{
     @Singleton
     @Binds
-    abstract fun provideWeatherRepository(weatherRepositoryImpl: WeatherRepositoryImpl) : WeatherRepository
+    abstract fun provideWeatherRepository(
+        weatherRepositoryImpl: WeatherRepositoryImpl
+    ) : WeatherRepository
 
     @Singleton
     @Binds
-    abstract fun provideLocationRepository(locationRepositoryImpl: LocationRepositoryImpl): LocationRepository
+    abstract fun provideLocationRepository(
+        locationRepositoryImpl: LocationRepositoryImpl
+    ): LocationRepository
 }

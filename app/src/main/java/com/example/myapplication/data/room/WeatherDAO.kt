@@ -13,15 +13,12 @@ interface WeatherDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNearestCity(weatherNearestCity: WeatherNearestCity)
 
-    @Transaction
     @Query("SELECT * FROM city ORDER BY id DESC LIMIT 10 ")
     suspend fun getNearestCities(): List<WeatherNearestCity>
 
-    @Transaction
     @Query("SELECT * FROM Weather WHERE id = :id")
-    suspend fun getWeatherById(id: Int) : List<Weather>
+    suspend fun getWeatherById(id: Int): List<Weather>
 
-    @Transaction
     @Query("SELECT * FROM Weather WHERE name = :cityName")
     suspend fun getWeatherByName(cityName: String): List<Weather>
 

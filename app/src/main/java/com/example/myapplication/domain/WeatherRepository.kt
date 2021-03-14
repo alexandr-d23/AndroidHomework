@@ -1,4 +1,4 @@
-package com.example.myapplication.data.repositories
+package com.example.myapplication.domain
 
 import com.example.myapplication.data.entities.Weather
 import com.example.myapplication.presentation.recyclerview.City

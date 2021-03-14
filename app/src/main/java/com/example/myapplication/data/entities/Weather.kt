@@ -3,7 +3,6 @@ package com.example.myapplication.data.entities;
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.myapplication.data.entities.WeatherResponse
 
 @Entity
 data class Weather(

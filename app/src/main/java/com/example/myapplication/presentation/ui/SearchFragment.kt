@@ -39,19 +39,7 @@ class SearchFragment : Fragment(), SearchView {
     private lateinit var startingCityFragment: StartingCityFragment
 
     interface StartingCityFragment {
-        fun start(cityId: Int)
-    }
-
-    companion object {
-        private const val PERMISSION_GEO = 999
-        const val CITY_ID = "CITY_ID_KEY"
-
-        fun newInstance(): SearchFragment {
-            val args = Bundle()
-            val fragment = SearchFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        fun startCityFragment(cityId: Int)
     }
 
     override fun onAttach(context: Context) {
@@ -64,7 +52,11 @@ class SearchFragment : Fragment(), SearchView {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,10 +68,15 @@ class SearchFragment : Fragment(), SearchView {
             //TODO()
             //searchPresenter.clickOnRecyclerItem(it)
         }
-        with(binding){
+        with(binding) {
             rvNearestCities.adapter = adapter
-            rvNearestCities.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-            swipeRefreshLayout.setOnRefreshListener{
+            rvNearestCities.addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+            swipeRefreshLayout.setOnRefreshListener {
                 requestPermissions()
                 swipeRefreshLayout.isRefreshing = false
                 //TODO()
@@ -89,21 +86,23 @@ class SearchFragment : Fragment(), SearchView {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        searchView = menu.findItem(R.id.action_search)?.actionView as androidx.appcompat.widget.SearchView
+        searchView =
+            menu.findItem(R.id.action_search)?.actionView as androidx.appcompat.widget.SearchView
         searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 findCityByName(p0 ?: "")
                 return true
             }
+
             override fun onQueryTextChange(p0: String?): Boolean {
                 return true
             }
@@ -112,9 +111,9 @@ class SearchFragment : Fragment(), SearchView {
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_GEO) {
@@ -132,11 +131,6 @@ class SearchFragment : Fragment(), SearchView {
             }
         }
     }
-//
-//    fun initPresenter(){
-//        searchPresenter = SearchPresenter(this, FindCityUseCase(WeatherRepositoryImpl(ApiFactory.weatherApi,
-//            WeatherDatabase.getInstance(requireContext()).weatherDAO),  Dispatchers.IO))
-//    }
 
     private fun findCityByName(name: String) {
         lifecycleScope.launch {
@@ -144,35 +138,31 @@ class SearchFragment : Fragment(), SearchView {
                 val weather = findCityUseCase.getWeatherByCityName(name)
                 weather?.let {
                     startDetailInformationFragment(it.id)
-                }
-                if(weather == null){
-                    showSnackBar("Город не найден")
-                }
+                } ?: showSnackBar(resources.getString(R.string.city_not_found))
             } catch (e: IOException) {
-                showSnackBar("Нет интернета")
+                showSnackBar(resources.getString(R.string.no_internet_connection))
             } catch (e: Exception) {
-                showSnackBar("Город не найден")
+                showSnackBar(resources.getString(R.string.city_not_found))
             }
         }
     }
 
-    private fun getGeo(){
+    private fun getGeo() {
         if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
 
             lifecycleScope.launch {
-                try{
-                    locationUseCase.getUserLocation().let{
+                try {
+                    locationUseCase.getUserLocation().let {
                         showCitiesWeather(it.latitude, it.longitude)
                     }
-                }
-                catch (e: Exception){
+                } catch (e: Exception) {
                     showCitiesWeatherByDefault()
                 }
             }
@@ -180,7 +170,7 @@ class SearchFragment : Fragment(), SearchView {
         }
     }
 
-    private fun showCitiesWeatherByDefault(){
+    private fun showCitiesWeatherByDefault() {
         showCitiesWeather(55.7887, 49.1221)
         showSnackBar("По умолчанию выбрана Казань")
     }
@@ -193,24 +183,36 @@ class SearchFragment : Fragment(), SearchView {
     }
 
     private fun startDetailInformationFragment(id: Int) {
-        startingCityFragment.start(id)
+        startingCityFragment.startCityFragment(id)
     }
 
     override fun showSnackBar(text: String) {
         Snackbar.make(binding.root, text, Snackbar.LENGTH_SHORT).show()
         (activity?.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                binding.root.windowToken,
-                0
+            binding.root.windowToken,
+            0
         )
     }
 
     private fun requestPermissions() {
         requestPermissions(
-                arrayOf(
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                ), PERMISSION_GEO
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ), PERMISSION_GEO
         )
+    }
+
+    companion object {
+        private const val PERMISSION_GEO = 999
+        const val CITY_ID = "CITY_ID_KEY"
+
+        fun newInstance(): SearchFragment {
+            val args = Bundle()
+            val fragment = SearchFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
 }

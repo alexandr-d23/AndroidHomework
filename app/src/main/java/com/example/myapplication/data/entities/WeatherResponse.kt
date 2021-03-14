@@ -1,7 +1,5 @@
 package com.example.myapplication.data.entities
 
-
-import androidx.room.*
 import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(

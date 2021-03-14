@@ -11,7 +11,7 @@ object ApiFactory {
     private const val QUERY_UNITS = "units"
     private const val QUERY_LANG = "lang"
 
-    private val apiKeyInterceptor = Interceptor{ chain ->
+    private val apiKeyInterceptor = Interceptor { chain ->
         val original = chain.request()
         original.url.newBuilder()
             .addQueryParameter(QUERY_API_KEY, BuildConfig.API_KEY)

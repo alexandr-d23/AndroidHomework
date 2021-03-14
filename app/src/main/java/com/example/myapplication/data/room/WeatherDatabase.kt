@@ -18,8 +18,8 @@ import com.example.myapplication.data.entities.WeatherNearestCity
     exportSchema = false
 )
 abstract class WeatherDatabase : RoomDatabase() {
-    abstract val weatherDAO: WeatherDAO
 
+    abstract val weatherDAO: WeatherDAO
 
     companion object {
         @Volatile
@@ -46,4 +46,3 @@ abstract class WeatherDatabase : RoomDatabase() {
         }
     }
 }
-
