@@ -7,15 +7,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:name=".presentation.di.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Weather"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Task1">
-        <activity android:name="com.example.myapplication.ui.CityWeatherActivity"
-            android:theme="@style/Theme.Task1NoActionBar"/>
-        <activity android:name="com.example.myapplication.ui.MainActivity">
+        <activity android:name="com.example.myapplication.presentation.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

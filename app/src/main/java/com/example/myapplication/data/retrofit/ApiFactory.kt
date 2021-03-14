@@ -1,4 +1,4 @@
-package com.example.myapplication.retrofit
+package com.example.myapplication.data.retrofit
 
 import com.example.myapplication.BuildConfig
 import okhttp3.Interceptor
@@ -11,7 +11,7 @@ object ApiFactory {
     private const val QUERY_UNITS = "units"
     private const val QUERY_LANG = "lang"
 
-    private val apiKeyInterceptor = Interceptor{ chain ->
+    private val apiKeyInterceptor = Interceptor { chain ->
         val original = chain.request()
         original.url.newBuilder()
             .addQueryParameter(QUERY_API_KEY, BuildConfig.API_KEY)
@@ -55,7 +55,7 @@ object ApiFactory {
             .build()
     }
 
-    val weatherApi by lazy {
+    val weatherApi: WeatherApi by lazy {
         retrofit.create(WeatherApi::class.java)
     }
 }

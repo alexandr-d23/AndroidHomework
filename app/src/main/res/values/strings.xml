@@ -1,5 +1,22 @@
 <resources>
-    <string name="app_name">Task1</string>
+    <string name="app_name">Weather</string>
     <string name="search">Search</string>
     <string name="back">back</string>
+    <string name="temperature_suffix">℃</string>
+    <string name="wind_speed_suffix">м/с</string>
+    <string name="north">Северный</string>
+    <string name="northeast">Северо-восточный</string>
+    <string name="east">Восточный</string>
+    <string name="southeast">Юго-восточный</string>
+    <string name="south">Южный</string>
+    <string name="southwest">Юго-западный</string>
+    <string name="west">Западный</string>
+    <string name="northwest">Северо-западный</string>
+    <string name="windText">Ветер</string>
+    <string name="wind_speed_text">Скорость ветра</string>
+    <string name="humidity_text">Влажность</string>
+    <string name="feels_like_text">Ощущается как</string>
+    <string name="temperature_text">Температура</string>
+    <string name="city_not_found">Город не найден</string>
+    <string name="no_internet_connection">Нет интернета</string>
 </resources>

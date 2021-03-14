@@ -3,64 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/main"
     android:layout_height="match_parent"
-    tools:context=".ui.CityWeatherActivity">
+    android:background="@color/main"
+    android:theme="@style/Theme.Task1NoActionBar"
+    tools:context=".presentation.ui.CityWeatherFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_name"
         style="@style/CardViewStyle"
-        app:cardCornerRadius="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:layout_gravity="center"
-            android:textSize="32sp"
+            android:layout_margin="16dp"
             android:background="@android:color/transparent"
-            tools:text = "City name"
-            />
+            android:textSize="32sp"
+            tools:text="City name" />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/main_card"
+        style="@style/CardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
-        style="@style/CardViewStyle"
-        app:layout_constraintTop_toBottomOf="@id/cv_name"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cv_name">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_temperature"
                 style="@style/CardViewStyle"
-                app:layout_constraintTop_toBottomOf="@id/cv_description"
+                app:layout_constraintEnd_toStartOf="@id/cv_feels_like"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cv_feels_like">
+                app:layout_constraintTop_toBottomOf="@id/cv_description">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:orientation="vertical">
+
                     <TextView
+                        style="@style/TextViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
                         android:layout_marginTop="16dp"
-                        style="@style/TextViewStyle"
-                        android:text="Температура"/>
+                        android:text="@string/temperature_text"
+                        android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/tv_temperature"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         style="@style/TextViewStyle"
-                        />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -69,30 +75,33 @@
                 android:id="@+id/cv_feels_like"
                 style="@style/CardViewStyle"
                 android:padding="64dp"
-                app:layout_constraintTop_toTopOf="@id/cv_temperature"
-                app:layout_constraintStart_toEndOf="@id/cv_temperature"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/cv_temperature"
-                >
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/cv_temperature"
+                app:layout_constraintTop_toTopOf="@id/cv_temperature">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_marginTop="16dp"
-                    style="@style/TextViewStyle"
-                    android:text="Ощущается как"/>
-                <TextView
-                    android:id="@+id/tv_feels_like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextViewStyle"
-                    />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/feels_like_text"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_feels_like"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
 
@@ -100,109 +109,122 @@
                 android:id="@+id/cv_description"
                 style="@style/CardViewStyle"
                 android:padding="64dp"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:id="@+id/tv_description"
-                    android:layout_margin="16dp"
+                    style="@style/TextViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextViewStyle"
-                    />
+                    android:layout_margin="16dp" />
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_humidity"
                 style="@style/CardViewStyle"
                 android:padding="64dp"
-                app:layout_constraintTop_toBottomOf="@id/cv_temperature"
+                app:layout_constraintEnd_toStartOf="@id/cv_wind_speed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cv_wind_speed">
+                app:layout_constraintTop_toBottomOf="@id/cv_temperature">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    style="@style/TextViewStyle"
-                    android:text="Влажность"/>
-                <TextView
-                    android:id="@+id/tv_humidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextViewStyle"
-                    />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/humidity_text"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_humidity"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_wind_speed"
                 style="@style/CardViewStyle"
                 android:padding="64dp"
-                app:layout_constraintTop_toBottomOf="@id/cv_temperature"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cv_humidity"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/cv_temperature">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    style="@style/TextViewStyle"
-                    android:text="Скорость ветра"/>
-                <TextView
-                    android:id="@+id/tv_wind_speed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextViewStyle"
-                    />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wind_speed_text"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_wind_speed"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_wind_direction"
                 style="@style/CardViewStyle"
                 android:padding="64dp"
-                app:layout_constraintTop_toBottomOf="@id/cv_humidity"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/cv_humidity">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="16dp"
                     android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    style="@style/TextViewStyle"
-                    android:text="Ветер"/>
-                <TextView
-                    android:id="@+id/tv_wind_direction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TextViewStyle"
-                    />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/windText"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_wind_direction"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
+
             <Button
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="@string/back"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

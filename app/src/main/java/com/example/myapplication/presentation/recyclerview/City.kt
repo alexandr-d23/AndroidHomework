@@ -1,4 +1,4 @@
-package com.example.myapplication.entities
+package com.example.myapplication.presentation.recyclerview
 
 data class City(
     var id: Int,
