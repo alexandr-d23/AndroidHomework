@@ -46,7 +46,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     private lateinit var startingCityFragment: StartingCityFragment
 
     interface StartingCityFragment {
-        fun startCityFragment(cityId: Int)
+        fun userSearchedCity(cityId: Int)
     }
 
     override fun onAttach(context: Context) {
@@ -65,14 +65,15 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        adapter = CityAdapter {
+            presenter.onRecyclerItemClick(it)
+        }
+        binding.rvNearestCities.adapter = adapter
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
-        adapter = CityAdapter {
-            presenter.onRecyclerItemClick(it)
-        }
         with(binding) {
             rvNearestCities.adapter = adapter
             rvNearestCities.addItemDecoration(
@@ -143,7 +144,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     }
 
     override fun startDetailInformationFragment(id: Int) {
-        startingCityFragment.startCityFragment(id)
+        startingCityFragment.userSearchedCity(id)
     }
 
     override fun showSnackBar(text: String) {
