@@ -29,7 +29,6 @@ abstract class WeatherDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE 'city' ('id' INTEGER PRIMARY KEY NOT NULL, 'city_id' INTEGER NOT NULL, 'city_name' TEXT NOT NULL, 'city_temperature' REAL NOT NULL)")
             }
-
         }
 
         fun getInstance(context: Context): WeatherDatabase {

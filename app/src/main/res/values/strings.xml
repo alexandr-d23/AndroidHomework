@@ -19,4 +19,5 @@
     <string name="temperature_text">Температура</string>
     <string name="city_not_found">Город не найден</string>
     <string name="no_internet_connection">Нет интернета</string>
+    <string name="choosed_kazan_by_defualt">По умолчанию выбрана Казань</string>
 </resources>

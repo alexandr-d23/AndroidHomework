@@ -21,11 +21,7 @@ class LocationRepositoryImpl @Inject constructor(
     )
     override suspend fun getUserLocation(): Location = suspendCancellableCoroutine { continuation ->
         client.lastLocation.addOnSuccessListener {
-            if (it != null) {
                 continuation.resume(it)
-            } else {
-                continuation.resumeWithException(NullPointerException())
-            }
         }.addOnFailureListener {
             continuation.resumeWithException(it)
         }

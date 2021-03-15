@@ -9,6 +9,9 @@ import com.example.myapplication.data.retrofit.ApiFactory
 import com.example.myapplication.data.retrofit.WeatherApi
 import com.example.myapplication.data.room.WeatherDAO
 import com.example.myapplication.data.room.WeatherDatabase
+import com.example.myapplication.domain.FindCityUseCase
+import com.example.myapplication.domain.LocationUseCase
+import com.example.myapplication.presentation.ui.SearchPresenter
 import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.Binds
 import dagger.Module
@@ -17,6 +20,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
+import moxy.presenter.ProvidePresenter
 import javax.inject.Named
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
