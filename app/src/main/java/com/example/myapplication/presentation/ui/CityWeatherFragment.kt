@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.myapplication.R
 import com.example.myapplication.data.entities.Weather
@@ -13,16 +12,25 @@ import com.example.myapplication.databinding.FragmentCityWeatherBinding
 import com.example.myapplication.domain.FindCityUseCase
 import com.example.myapplication.utils.WeatherUtil
 import dagger.hilt.android.AndroidEntryPoint
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CityWeatherFragment : Fragment() {
+class CityWeatherFragment : MvpAppCompatFragment(), CityWeatherView {
 
     private var _binding: FragmentCityWeatherBinding? = null
     private val binding get() = _binding!!
 
     @Inject
     lateinit var useCase: FindCityUseCase
+
+    @InjectPresenter
+    lateinit var presenter: CityWeatherPresenter
+
+    @ProvidePresenter
+    fun providePresenter() = CityWeatherPresenter(useCase)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,34 +39,30 @@ class CityWeatherFragment : Fragment() {
     ): View? {
         _binding = FragmentCityWeatherBinding.inflate(layoutInflater, container, false)
         val cityId = arguments?.getInt(SearchFragment.CITY_ID) ?: 0
-        lifecycleScope.launchWhenCreated {
-            useCase.getWeatherById(cityId)?.let {
-                bindData(it)
-            }
-        }
+        presenter.onLoaded(cityId)
         return binding.root
     }
 
-    private fun bindData(weatherResponse: Weather) {
+    private fun bindData(weather: Weather) {
         with(binding) {
-            tvName.text = weatherResponse.name
+            tvName.text = weather.name
             tvTemperature.text =
-                "${weatherResponse.main.temp.toInt()}${resources.getString(R.string.temperature_suffix)}"
+                "${weather.main.temp.toInt()}${resources.getString(R.string.temperature_suffix)}"
             val color = ContextCompat.getColor(
                 binding.root.context,
-                WeatherUtil.getColorByTemp(weatherResponse.main.temp)
+                WeatherUtil.getColorByTemp(weather.main.temp)
             )
             mainCard.setCardBackgroundColor(color)
-            tvDescription.text = weatherResponse.innerWeather.description
-            tvWindSpeed.text = "${weatherResponse.wind.speed}"
+            tvDescription.text = weather.innerWeather.description
+            tvWindSpeed.text = "${weather.wind.speed}"
             tvHumidity.text =
-                "${weatherResponse.main.humidity}${resources.getString(R.string.wind_speed_suffix)}"
+                "${weather.main.humidity}${resources.getString(R.string.wind_speed_suffix)}"
             tvWindDirection.text = WeatherUtil.getDirectionByDegree(
                 requireContext().applicationContext,
-                weatherResponse.wind.deg
+                weather.wind.deg
             )
             tvFeelsLike.text =
-                "${weatherResponse.main.feelsLike.toInt()}${resources.getString(R.string.wind_speed_suffix)}"
+                "${weather.main.feelsLike.toInt()}${resources.getString(R.string.wind_speed_suffix)}"
             btnBack.setOnClickListener {
                 activity?.onBackPressed()
             }
@@ -79,5 +83,9 @@ class CityWeatherFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun updateWeather(weather: Weather) {
+        bindData(weather)
     }
 }

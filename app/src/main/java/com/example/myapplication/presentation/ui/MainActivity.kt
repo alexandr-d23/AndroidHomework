@@ -1,13 +1,13 @@
 package com.example.myapplication.presentation.ui
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import moxy.MvpAppCompatActivity
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), SearchFragment.StartingCityFragment {
+class MainActivity : MvpAppCompatActivity(), SearchFragment.StartingCityFragment {
 
     private lateinit var binding: ActivityMainBinding
 

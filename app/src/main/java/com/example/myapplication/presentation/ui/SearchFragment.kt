@@ -4,33 +4,40 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentSearchBinding
 import com.example.myapplication.domain.FindCityUseCase
 import com.example.myapplication.domain.LocationUseCase
+import com.example.myapplication.presentation.recyclerview.City
 import com.example.myapplication.presentation.recyclerview.CityAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import java.io.IOException
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
+import moxy.presenter.ProvidePresenter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), SearchView {
+class SearchFragment : MvpAppCompatFragment(), SearchView {
 
     @Inject
     lateinit var findCityUseCase: FindCityUseCase
 
     @Inject
     lateinit var locationUseCase: LocationUseCase
+
+    @InjectPresenter
+    lateinit var presenter: SearchPresenter
+
+    @ProvidePresenter
+    fun providePresenter() =
+        SearchPresenter(findCityUseCase, locationUseCase, requireContext().applicationContext)
+
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get(): FragmentSearchBinding = _binding!!
@@ -64,9 +71,7 @@ class SearchFragment : Fragment(), SearchView {
     override fun onStart() {
         super.onStart()
         adapter = CityAdapter {
-            startDetailInformationFragment(it)
-            //TODO()
-            //searchPresenter.clickOnRecyclerItem(it)
+            presenter.onRecyclerItemClick(it)
         }
         with(binding) {
             rvNearestCities.adapter = adapter
@@ -77,13 +82,10 @@ class SearchFragment : Fragment(), SearchView {
                 )
             )
             swipeRefreshLayout.setOnRefreshListener {
-                requestPermissions()
+                presenter.onSwipeRefreshListener()
                 swipeRefreshLayout.isRefreshing = false
-                //TODO()
             }
         }
-        requestPermissions()
-
     }
 
     override fun onDestroyView() {
@@ -99,7 +101,7 @@ class SearchFragment : Fragment(), SearchView {
         searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                findCityByName(p0 ?: "")
+                presenter.searchTextSubmitted(p0 ?: "")
                 return true
             }
 
@@ -117,72 +119,30 @@ class SearchFragment : Fragment(), SearchView {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_GEO) {
-            var areGranted = true
             grantResults.forEach {
+                var areGranted = true
                 if (it == PackageManager.PERMISSION_DENIED) {
                     areGranted = false
                 }
-            }
-            if (areGranted) {
-                Log.d("MYTAG", "Получены пермишены")
-                getGeo()
-            } else {
-                showCitiesWeatherByDefault()
+                if (areGranted) presenter.permissionsGranted()
+                else presenter.permissionsDenied()
             }
         }
     }
 
-    private fun findCityByName(name: String) {
-        lifecycleScope.launch {
-            try {
-                val weather = findCityUseCase.getWeatherByCityName(name)
-                weather?.let {
-                    startDetailInformationFragment(it.id)
-                } ?: showSnackBar(resources.getString(R.string.city_not_found))
-            } catch (e: IOException) {
-                showSnackBar(resources.getString(R.string.no_internet_connection))
-            } catch (e: Exception) {
-                showSnackBar(resources.getString(R.string.city_not_found))
-            }
-        }
-    }
-
-    private fun getGeo() {
-        if (ActivityCompat.checkSelfPermission(
+    override fun checkLocationPermission() {
+        presenter.onCheckPermissionResult(
+            ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
-        ) {
-
-            lifecycleScope.launch {
-                try {
-                    locationUseCase.getUserLocation().let {
-                        showCitiesWeather(it.latitude, it.longitude)
-                    }
-                } catch (e: Exception) {
-                    showCitiesWeatherByDefault()
-                }
-            }
-
-        }
+        )
     }
 
-    private fun showCitiesWeatherByDefault() {
-        showCitiesWeather(55.7887, 49.1221)
-        showSnackBar("По умолчанию выбрана Казань")
-    }
-
-    private fun showCitiesWeather(latitude: Double, longitude: Double) {
-        lifecycleScope.launch {
-            val list = findCityUseCase.getWeatherByGeo(latitude, longitude, 10)
-            adapter.submitList(list.toMutableList())
-        }
-    }
-
-    private fun startDetailInformationFragment(id: Int) {
+    override fun startDetailInformationFragment(id: Int) {
         startingCityFragment.startCityFragment(id)
     }
 
@@ -194,7 +154,11 @@ class SearchFragment : Fragment(), SearchView {
         )
     }
 
-    private fun requestPermissions() {
+    override fun showCityList(list: List<City>) {
+        adapter.submitList(list.toMutableList())
+    }
+
+    override fun requestPermissions() {
         requestPermissions(
             arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
